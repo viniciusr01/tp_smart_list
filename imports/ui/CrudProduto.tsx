@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import React from 'react';
 import { ProdutosCollection } from '../api/ProdutosCollection';
 
-export const CrudProduto = ({ produto }) => {
+export const CrudProduto = ({ produto, usuario }) => {
   const [nome, setNome] = React.useState("");
 
   const handleSubmit = (e: any) => {
@@ -13,7 +13,8 @@ export const CrudProduto = ({ produto }) => {
 
     ProdutosCollection.insert({
       nome: nome.trim(),
-      createdAt: new Date()
+      createdAt: new Date(),
+      userId: usuario._id,
     });
 
     setNome("");
