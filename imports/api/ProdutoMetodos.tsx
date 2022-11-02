@@ -3,13 +3,20 @@ import { check } from 'meteor/check';
 import { ProdutosCollection } from '/imports/api/db/ProdutosCollection';
  
 Meteor.methods({
-  'produto.inserir'(nome) {
+  'produto.inserir'(nome, quantidade, valor) {
     check(nome, String);
+    check(quantidade, String);
+    check(valor, String);
+
+    quantidade = parseInt(quantidade);
+    valor = parseFloat(valor);
 
     if (!this.userId) { throw new Meteor.Error('Você não possui permissão para inserir produtos.'); }
 
     ProdutosCollection.insert({
       nome,
+      quantidade,
+      valor,
       createdAt: new Date,
       userId: this.userId,
     })

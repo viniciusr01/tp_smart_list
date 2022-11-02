@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { Box } from '@mui/system';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 
 export const Produto = ({ produto }) => {
 
@@ -21,7 +21,10 @@ export const Produto = ({ produto }) => {
         height: '3rem'
       }}
     >
-      <h3>{produto.nome}</h3>
+      <Typography>{produto.nome}</Typography>
+      <Typography>{produto.quantidade}</Typography>
+      <Typography>{produto.valor}</Typography>
+
       <IconButton onClick={removerProduto}>
         <DeleteIcon/>
       </IconButton>
