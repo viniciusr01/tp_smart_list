@@ -17,10 +17,10 @@ Meteor.methods({
 
   'produto.remover'(produtoId) {
     check(produtoId, String);
-
+    
+    if (!this.userId) { throw new Meteor.Error('Você não possui permissão para remover esse produto.'); }
     const produto = ProdutosCollection.findOne({ _id: produtoId, userId: this.userId });
     if (!produto) { throw new Meteor.Error('O produto não existe.'); }
-    if (!this.userId) { throw new Meteor.Error('Você não possui permissão para remover produtos.'); }
 
     ProdutosCollection.remove(produtoId);
   },
@@ -29,10 +29,11 @@ Meteor.methods({
     check(produtoId, String);
     check(produtoId, String);
     
+    
+    if (!this.userId) { throw new Meteor.Error('Você não possui permissão para editar esse produto.'); }
     const produto = ProdutosCollection.findOne({ _id: produtoId, userId: this.userId });
     if (!produto) { throw new Meteor.Error('O produto não existe.'); }
-    if (!this.userId) { throw new Meteor.Error('Você não possui permissão para editar esse produto.'); }
-
+    
     ProdutosCollection.update(produtoId, {
       $set: {
         nome: nome
