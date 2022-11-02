@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import { ProdutosCollection } from '/imports/api/ProdutosCollection';
+import { ProdutosCollection } from '/imports/api/db/ProdutosCollection';
  
 Meteor.methods({
   'produto.inserir'(nome) {
@@ -18,6 +18,8 @@ Meteor.methods({
   'produto.remover'(produtoId) {
     check(produtoId, String);
 
+    const produto = ProdutosCollection.findOne({ _id: produtoId, userId: this.userId });
+    if (!produto) { throw new Meteor.Error('O produto não existe.'); }
     if (!this.userId) { throw new Meteor.Error('Você não possui permissão para remover produtos.'); }
 
     ProdutosCollection.remove(produtoId);
@@ -26,7 +28,9 @@ Meteor.methods({
   'produto.editar'(produtoId, nome) {
     check(produtoId, String);
     check(produtoId, String);
- 
+    
+    const produto = ProdutosCollection.findOne({ _id: produtoId, userId: this.userId });
+    if (!produto) { throw new Meteor.Error('O produto não existe.'); }
     if (!this.userId) { throw new Meteor.Error('Você não possui permissão para editar esse produto.'); }
 
     ProdutosCollection.update(produtoId, {

@@ -8,20 +8,21 @@ import { Produto } from './Produto.tsx';
 import { Login } from './Login.tsx';
 
 export const App = () => {
-  const user = useTracker(() => Meteor.user());
+  const user = Meteor.user();
   const [filter, setFilter] = React.useState({});
   const filtrarUsuario = user ? { userId: user._id } : {};
-  const produtos = useTracker(() => {
-    if (!user) { return []; }
-    return ProdutosCollection.find( filtrarUsuario, { sort: { nome: 1 } }).fetch()
-  });
   const deslogar = () => Meteor.logout();
-  const quantidadeProdutos = useTracker(() => {
-    if (!user) { return []; }
-    return ProdutosCollection.find(filter).count()
-  });
+  
+  const {produtos, quantidadeProdutos, loading} = useTracker(() => {
+  const subHandle = Meteor.subscribe('produtos');
+  const produtos = subHandle?.ready() ? ProdutosCollection.find(filtrarUsuario, {  sort: { nome: 1 } }).fetch() : [];
+  const quantidadeProdutos = subHandle?.ready() ? ProdutosCollection.find(filtrarUsuario).count() : 0;
+  
+  return {produtos, quantidadeProdutos, loading: !!subHandle && !subHandle.ready()};
+})
 
-  console.log(produtos)
+  
+
 
   return (
     user ? (
@@ -40,6 +41,7 @@ export const App = () => {
 
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
 
+          {loading && <Box>Carregando...</Box>}
           {produtos.map((produto) => {
             return (
               <Box>
