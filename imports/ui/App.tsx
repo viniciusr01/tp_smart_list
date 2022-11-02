@@ -1,25 +1,27 @@
 import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { ProdutosCollection } from '../api/ProdutosCollection.jsx';
+import { ProdutosCollection } from '../api/db/ProdutosCollection.jsx';
 import { useTracker } from 'meteor/react-meteor-data';
-import { CrudProduto } from './CrudProduto.tsx';
+import { ProdutoAdd } from './ProdutoAdd.tsx';
 import { Produto } from './Produto.tsx';
 import { Login } from './Login.tsx';
 
 export const App = () => {
   const user = useTracker(() => Meteor.user());
   const [filter, setFilter] = React.useState({});
-  const userFilter = user ? { userId: user._id } : {};
+  const filtrarUsuario = user ? { userId: user._id } : {};
   const produtos = useTracker(() => {
     if (!user) { return []; }
-    return ProdutosCollection.find({ ...filter, userFilter }, { sort: { nome: 1 } }).fetch()
+    return ProdutosCollection.find( filtrarUsuario, { sort: { nome: 1 } }).fetch()
   });
   const deslogar = () => Meteor.logout();
   const quantidadeProdutos = useTracker(() => {
     if (!user) { return []; }
     return ProdutosCollection.find(filter).count()
   });
+
+  console.log(produtos)
 
   return (
     user ? (
@@ -46,7 +48,7 @@ export const App = () => {
             )
           })}
 
-          <CrudProduto usuario={user} />
+          <ProdutoAdd />
 
         </Box>
       </Box>

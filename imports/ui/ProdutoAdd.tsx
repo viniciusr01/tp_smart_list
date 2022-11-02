@@ -1,9 +1,9 @@
+import { Meteor } from 'meteor/meteor';
+import React from 'react';
 import { Button, TextField } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
-import { ProdutosCollection } from '../api/ProdutosCollection';
 
-export const CrudProduto = ({ produto, usuario }) => {
+export const ProdutoAdd = () => {
   const [nome, setNome] = React.useState("");
 
   const handleSubmit = (e: any) => {
@@ -11,11 +11,7 @@ export const CrudProduto = ({ produto, usuario }) => {
 
     if (!nome) return;
 
-    ProdutosCollection.insert({
-      nome: nome.trim(),
-      createdAt: new Date(),
-      userId: usuario._id,
-    });
+    Meteor.call('produto.inserir', nome)
 
     setNome("");
   };

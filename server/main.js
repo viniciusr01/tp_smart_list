@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { ProdutosCollection } from '../imports/api/ProdutosCollection';
+import { ProdutosCollection } from '../imports/api/db/ProdutosCollection';
+import '/imports/api/ProdutoMetodos';
 
 const inserirProduto = (nomeProduto, user) => {
   ProdutosCollection.insert({ nome: nomeProduto, userId: user._id, createdAt: new Date(), });
