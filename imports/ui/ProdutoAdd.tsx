@@ -7,7 +7,6 @@ export const ProdutoAdd = () => {
   const [nome, setNome] = React.useState("");
   const [quantidade, setQuantidade] = React.useState("");
   const [valor, setValor] = React.useState("");
-  const [erro, setErro] = React.useState("");
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
