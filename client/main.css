@@ -1,5 +1,6 @@
 body {
-  font-family: sans-serif;
+  font-family: Arial;
+  background-color: #ffffff;
   background-attachment: fixed;
 
   position: absolute;
@@ -11,5 +12,21 @@ body {
   padding: 0;
   margin: 0;
 
-  font-size: 14px;
+  font-size: 18px;
 }
+
+button {
+
+  height: 55px;
+  width: auto;
+  margin: 0px 20px;
+  background: linear-gradient(45deg, #0080df 30%, #289cff 90%);
+  color: white;
+  box-shadow: 0 3px 5px 2px #D3D8D8;
+}
+
+button:focus {
+  outline: 0;
+}
+
+

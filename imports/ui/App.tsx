@@ -3,31 +3,29 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { ProdutosCollection } from '../api/db/ProdutosCollection.jsx';
 import { useTracker } from 'meteor/react-meteor-data';
-import { ProdutoAdd } from './ProdutoAdd.tsx';
-import { Produto } from './Produto.tsx';
-import { Login } from './Login.tsx';
+import { ProdutoAdd } from './ProdutoAdd';
+import { Produto } from './Produto';
+import { Login } from './Login';
 
 export const App = () => {
-  const user = Meteor.user();
+
+  const { produtos, quantidadeProdutos, loading, user } = useTracker(() => {
+    const user = Meteor.user();
+    const filtrarUsuario = user ? { userId: user._id } : {};
+    const subHandle = Meteor.subscribe('produtos');
+    const produtos = subHandle?.ready() ? ProdutosCollection.find(filtrarUsuario, { sort: { nome: 1 } }).fetch() : [];
+    const quantidadeProdutos = subHandle?.ready() ? ProdutosCollection.find(filtrarUsuario).count() : 0;
+
+    return { produtos, quantidadeProdutos, loading: !!subHandle && !subHandle.ready(), user };
+  })
+
   const [filter, setFilter] = React.useState({});
-  const filtrarUsuario = user ? { userId: user._id } : {};
   const deslogar = () => Meteor.logout();
-  
-  const {produtos, quantidadeProdutos, loading} = useTracker(() => {
-  const subHandle = Meteor.subscribe('produtos');
-  const produtos = subHandle?.ready() ? ProdutosCollection.find(filtrarUsuario, {  sort: { nome: 1 } }).fetch() : [];
-  const quantidadeProdutos = subHandle?.ready() ? ProdutosCollection.find(filtrarUsuario).count() : 0;
-  
-  return {produtos, quantidadeProdutos, loading: !!subHandle && !subHandle.ready()};
-})
-
-  
-
-
+  console.log(user)
   return (
     user ? (
       <Box sx={{ display: 'flex', flexDirection: 'column', padding: '10% 15%' }}>
-        <Box sx={{display: 'flex', width: '100%', justifyContent: 'end'}}>
+        <Box sx={{ display: 'flex', width: '100%', justifyContent: 'end' }}>
           <Button onClick={deslogar}>
             Deslogar
           </Button>
@@ -55,7 +53,9 @@ export const App = () => {
         </Box>
       </Box>
     ) : (
-      <Login />
+      <>
+        <Login />
+      </>
     )
   )
 };
