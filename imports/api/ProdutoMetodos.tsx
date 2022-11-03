@@ -100,8 +100,11 @@ Meteor.methods({
     if (!this.userId) { throw new Meteor.Error('Acesso não permitido.'); }
     const produtos = ProdutosCollection.find({ userId: this.userId }).fetch();
     
-    let valor = 10000000;
+    let valor = 0;
     let nome = '';
+    if(produtos.length < 1) { return {valor, nome} }
+
+    valor = 1000000;
     produtos.forEach((produto) => {
       if(produto.valor < valor){
         valor = produto.valor;

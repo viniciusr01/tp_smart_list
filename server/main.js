@@ -3,10 +3,6 @@ import { ProdutosCollection } from '../imports/api/db/ProdutosCollection';
 import '/imports/api/ProdutoMetodos';
 import '/imports/api/ProdutosPublications';
 
-const inserirProduto = (nomeProduto, user) => {
-  ProdutosCollection.insert({ nome: nomeProduto, userId: user._id, createdAt: new Date(), });
-}
-
 const ADMIN_LOGIN = 'admin';
 const ADMIN_SENHA = 'admin';
 
@@ -18,13 +14,4 @@ Meteor.startup(() => {
     });
   }
 
-  const user = Accounts.findUserByUsername(ADMIN_LOGIN);
-
-  if (ProdutosCollection.find().count() === 0) {
-    [
-      'Banana',
-      'Maçã',
-      'Laranja',
-    ].forEach(nomeProduto => inserirProduto(nomeProduto, user));
-  }
 });
