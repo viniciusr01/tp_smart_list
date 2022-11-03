@@ -66,5 +66,49 @@ Meteor.methods({
         nome: nome
       }
     });
+  },
+
+  'valorTotalLista'() {
+    if (!this.userId) { throw new Meteor.Error('Acesso não permitido.'); }
+    const produtos = ProdutosCollection.find({ userId: this.userId }).fetch();
+    
+    let valorTotal = 0;
+    produtos.forEach((produto) => {
+      valorTotal = valorTotal + produto.quantidade * produto.valor;
+    })
+    
+    return valorTotal;
+  },
+
+  'produtoMaisCaro'() {
+    if (!this.userId) { throw new Meteor.Error('Acesso não permitido.'); }
+    const produtos = ProdutosCollection.find({ userId: this.userId }).fetch();
+    
+    let valor = 0;
+    let nome = '';
+    produtos.forEach((produto) => {
+      if(produto.valor > valor){
+        valor = produto.valor;
+        nome = produto.nome;
+      }
+    })
+    
+    return {valor, nome};
+  },
+
+  'produtoMaisBarato'() {
+    if (!this.userId) { throw new Meteor.Error('Acesso não permitido.'); }
+    const produtos = ProdutosCollection.find({ userId: this.userId }).fetch();
+    
+    let valor = 10000000;
+    let nome = '';
+    produtos.forEach((produto) => {
+      if(produto.valor < valor){
+        valor = produto.valor;
+        nome = produto.nome;
+      }
+    })
+    
+    return {valor, nome};
   }
 });

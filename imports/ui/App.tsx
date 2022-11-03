@@ -9,18 +9,26 @@ import { Login } from './Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export const App = () => {
-
   const { produtos, quantidadeProdutos, loading, user } = useTracker(() => {
     const user = Meteor.user();
-    const filtrarUsuario = user ? { userId: user._id } : {};
+    const filtrarUsuario = !!user && user ? { userId: user._id } : {};
     const subHandle = Meteor.subscribe('produtos');
     const produtos = subHandle?.ready() ? ProdutosCollection.find(filtrarUsuario, { sort: { nome: 1 } }).fetch() : [];
     const quantidadeProdutos = subHandle?.ready() ? ProdutosCollection.find(filtrarUsuario).count() : 0;
-
+   
     return { produtos, quantidadeProdutos, loading: !!subHandle && !subHandle.ready(), user };
   })
 
-  const [filter, setFilter] = React.useState({});
+  const [valorTotalLista, setValorTotalLista] = React.useState(0);
+  const [produtoMaisCaro, setProdutoMaisCaro] = React.useState({nome: '', valor: 0});
+  const [produtoMaisBarato, setProdutoMaisBarato] = React.useState({nome: '', valor: 0});
+
+  React.useEffect(() => {
+    Meteor.call('valorTotalLista', function(e, r) {setValorTotalLista(r)});
+    Meteor.call('produtoMaisCaro', function(e, r) {setProdutoMaisCaro({nome: r.nome, valor: r.valor})});
+    Meteor.call('produtoMaisBarato', function(e, r) {setProdutoMaisBarato({nome: r.nome, valor: r.valor})});
+  },[quantidadeProdutos]);
+
   const deslogar = () => Meteor.logout();
 
   return (
@@ -67,7 +75,7 @@ export const App = () => {
                   <Typography sx={{ fontSize: '20px', fontWeight: '700', width: '10%' }}>Preço</Typography>
                   <Typography sx={{ fontSize: '20px', fontWeight: '700', width: '10%' }}>Ações</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', height: '450px', overflowY: 'auto' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', height: '500px', overflowY: 'auto' }}>
                   {loading && <Box>Carregando...</Box>}
                   {produtos.map((produto) => {
                     return (
@@ -76,25 +84,40 @@ export const App = () => {
                   })}
                 </Box>
               </Box>
-              <TextField
-                onChange={(e) => setFilter({ nome: e.target.value })}
-                placeholder="Pesquisar produto"
-              />
 
             </Box>
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'column',
+                flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '40%'
+                width: '40%',
+                flexWrap: 'wrap',
+                gap: '1rem',
               }}
-            >
-              <Typography>Detalhes da compra:</Typography>
-              <Typography>Detalhes da compra:</Typography>
-              <Typography>Detalhes da compra:</Typography>
-              <Typography>Detalhes da compra:</Typography>
+            > 
+              <Typography sx={{fontSize: 30, fontWeight: 800}}>Detalhes da compra:</Typography>
+
+              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>
+              <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Valor total</Typography>
+              <Typography sx={{fontSize: 50, fontWeight: 800, color: 'white'}}>R$ {valorTotalLista}</Typography>
+              </Box>
+
+              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>
+              <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Quantidade total</Typography>
+              <Typography sx={{fontSize: 50, fontWeight: 800, color: 'white'}}>{quantidadeProdutos}</Typography>
+              </Box>
+
+              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>
+              <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Mais caro</Typography>
+              <Typography sx={{fontSize: 30, fontWeight: 800, color: 'white'}}>{produtoMaisCaro.nome} R$ {produtoMaisCaro.valor}</Typography>
+              </Box>
+
+              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>
+              <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Mais barato</Typography>
+              <Typography sx={{fontSize: 30, fontWeight: 800, color: 'white'}}>{produtoMaisBarato.nome} R$ {produtoMaisBarato.valor}</Typography>
+              </Box>
 
             </Box>
           </Box>
