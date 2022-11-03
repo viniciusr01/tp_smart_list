@@ -100,13 +100,13 @@ export const App = () => {
               <Typography sx={{fontSize: 30, fontWeight: 800}}>Detalhes da compra:</Typography>
 
               <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>
-              <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Valor total</Typography>
-              <Typography sx={{fontSize: 50, fontWeight: 800, color: 'white'}}>R$ {valorTotalLista}</Typography>
+              <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Valor</Typography>
+              <Typography sx={{fontSize: 40, fontWeight: 800, color: 'white'}}>R$ {valorTotalLista}</Typography>
               </Box>
 
               <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>
-              <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Quantidade total</Typography>
-              <Typography sx={{fontSize: 50, fontWeight: 800, color: 'white'}}>{quantidadeProdutos}</Typography>
+              <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Quantidade </Typography>
+              <Typography sx={{fontSize: 40, fontWeight: 800, color: 'white'}}>{quantidadeProdutos}</Typography>
               </Box>
 
               <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>

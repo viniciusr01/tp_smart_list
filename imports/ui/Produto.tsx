@@ -18,7 +18,7 @@ export const Produto = ({ produto }) => {
         alignItems: 'center', 
         justifyContent: 'space-between', 
         borderBottom: '1px solid silver', 
-        height: '2rem'
+        height: '3rem'
       }}
     >
       <Typography sx={{width: '30%'}}>{produto.nome}</Typography>
