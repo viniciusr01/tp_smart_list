@@ -76,7 +76,7 @@ export const App = () => {
 
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column' , alignItems: 'center', justifyContent: 'center', width: '40%' }}>
-              Pensar o que vai ter aqui
+              Total da lista de compra e pensar talvez na possibilidade de adicionar categoria kkkkk
             </Box>
           </Box>
         </Box>

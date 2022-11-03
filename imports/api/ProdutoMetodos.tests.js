@@ -2,14 +2,14 @@ import { Meteor } from 'meteor/meteor';
 import { Random } from 'meteor/random';
 import { ProdutosCollection } from './db/ProdutosCollection';
 import { mockMethodCall } from 'meteor/quave:testing';
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 import '/imports/api/ProdutoMetodos';
 
-import {isLimitProduct} from './ProdutoMetodos';
+import {eLimiteDeProduto} from './ProdutoMetodos';
 
 if (Meteor.isServer) {
   describe('Produtos', () => {
-    describe('methods', () => {
+    describe('Produto Métodos', () => {
       const userId = Random.id();
       let produtoId;
 
@@ -57,10 +57,26 @@ if (Meteor.isServer) {
       });
 
 
-      it('quantidade limite de produto', () => {
-        assert.equal(isLimitProduct(8), 1);
-      });
+      
 
     });
   });
+
+  describe('Teste de limite da quantidade do produto', () => {
+
+    it('Limite inferior', () => {
+      assert.equal(eLimiteDeProduto(9), 1);
+    });
+
+    it('Limite', () => {
+      assert.equal(eLimiteDeProduto(10), 1);
+    });
+
+    it('Limite Superior', () => {
+        assert.throws( () => eLimiteDeProduto(11), /Quantidade de produtos passou do limite./);
+    });
+
+  });
+
+
 }
