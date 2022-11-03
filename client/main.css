@@ -23,6 +23,7 @@ button {
   background: linear-gradient(45deg, #0080df 30%, #289cff 90%);
   color: white;
   box-shadow: 0 3px 5px 2px #D3D8D8;
+  text-transform: none;
 }
 
 button:focus {

@@ -18,16 +18,13 @@ export const Produto = ({ produto }) => {
         alignItems: 'center', 
         justifyContent: 'space-between', 
         borderBottom: '1px solid silver', 
-        height: '3rem'
+        height: '2rem'
       }}
     >
-      <Typography>{produto.nome}</Typography>
-      <Typography>{produto.quantidade}</Typography>
-      <Typography>{produto.valor}</Typography>
-
-      <IconButton onClick={removerProduto}>
-        <DeleteIcon/>
-      </IconButton>
+      <Typography sx={{width: '30%'}}>{produto.nome}</Typography>
+      <Typography sx={{width: '10%'}}>{produto.quantidade}</Typography>
+      <Typography sx={{width: '10%'}}>R$ {produto.valor}</Typography>
+      <DeleteIcon onClick={removerProduto} sx={{fontSize: '35px', cursor: 'pointer', color: '#0080df'}}/>
     </Box>
   )
 };

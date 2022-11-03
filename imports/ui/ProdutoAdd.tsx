@@ -21,7 +21,7 @@ export const ProdutoAdd = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'end', gap: '1rem' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', alignItems: 'end', gap: '2rem' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <Typography>
           Produto
