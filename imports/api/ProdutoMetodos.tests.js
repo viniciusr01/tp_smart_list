@@ -5,6 +5,8 @@ import { mockMethodCall } from 'meteor/quave:testing';
 import { assert } from 'chai';
 import '/imports/api/ProdutoMetodos';
 
+import {isLimitProduct} from './ProdutoMetodos';
+
 if (Meteor.isServer) {
   describe('Produtos', () => {
     describe('methods', () => {
@@ -43,13 +45,20 @@ if (Meteor.isServer) {
 
       it('consegue inserir novo produto', () => {
         const nome = 'Produto novo';
-        mockMethodCall('produto.inserir', nome, {
+        const quantidade = '5';
+        const preco = '1.50';
+        mockMethodCall('produto.inserir', nome, quantidade, preco, {
           context: { userId },
         });
 
         const produtos = ProdutosCollection.find({}).fetch();
         assert.equal(produtos.length, 2);
         assert.isTrue(produtos.some(produto => produto.nome === nome));
+      });
+
+
+      it('quantidade limite de produto', () => {
+        assert.equal(isLimitProduct(8), 1);
       });
 
     });

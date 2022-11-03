@@ -1,6 +1,17 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { ProdutosCollection } from '/imports/api/db/ProdutosCollection';
+
+
+
+
+export const isLimitProduct = (quantidade) => {
+    if(quantidade>10)
+      throw new Meteor.Error('Quantidade de produtos passou do limite');
+    else
+      return 1 
+}
+
  
 Meteor.methods({
   'produto.inserir'(nome, quantidade, valor) {
@@ -10,6 +21,8 @@ Meteor.methods({
 
     quantidade = parseInt(quantidade);
     valor = parseFloat(valor);
+
+    if(isLimitProduct(quantidade))
 
     if (!this.userId) { throw new Meteor.Error('Você não possui permissão para inserir produtos.'); }
 
