@@ -3,8 +3,6 @@ import { check } from 'meteor/check';
 import { ProdutosCollection } from '/imports/api/db/ProdutosCollection';
 
 
-
-
 export const eLimiteDeProduto = (quantidade) => {
     if(quantidade>10)
       throw new Meteor.Error('Quantidade de produtos passou do limite');
@@ -13,10 +11,15 @@ export const eLimiteDeProduto = (quantidade) => {
 }
 
 export const eLimiteDePreco = (preco) => {
-  if(preco>10)
+  if(preco>35.99)
     throw new Meteor.Error('Produto com preço além do limite');
   else
     return 1 
+}
+
+export const eValorMonetario = (stringPreco) => {
+    var er = /[\d\.\,]+$/;
+    return (er.test(stringPreco))
 }
 
  
@@ -26,10 +29,23 @@ Meteor.methods({
     check(quantidade, String);
     check(valor, String);
 
+    
+  
     quantidade = parseInt(quantidade);
-    valor = parseFloat(valor);
+
+    if(eValorMonetario(valor)){
+      valor = parseFloat(valor);
+    } else{
+      throw new Meteor.Error('O preço inserido não é um numero');
+    }
+
+    if(isNaN(valor)) { throw new Meteor.Error('O preço inserido não é um numero'); }
+
 
     if(eLimiteDeProduto(quantidade))
+    if(eLimiteDePreco(valor))
+
+
 
     if (!this.userId) { throw new Meteor.Error('Você não possui permissão para inserir produtos.'); }
 
