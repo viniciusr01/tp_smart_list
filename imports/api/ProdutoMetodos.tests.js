@@ -43,8 +43,14 @@ if (Meteor.isServer) {
         assert.equal(ProdutosCollection.find().count(), 1);
       });
 
-      
-
+      it(`não consegue deletar um produto que não existe`, () => {
+        const fn = () =>
+          mockMethodCall('produto.remover', 'idInexistente', {
+            context: { userId: 'id-de-alguem' },
+          });
+        assert.throw(fn, /O produto não existe./);
+        assert.equal(ProdutosCollection.find().count(), 1);
+      });
 
     });
   });
@@ -59,15 +65,152 @@ if (Meteor.isServer) {
       const nome = 'Produto novo';
       const quantidade = '5';
       const preco = '1.50';
+
+      ProdutosCollection.remove({});
       mockMethodCall('produto.inserir', nome, quantidade, preco, {
         context: { userId },
       });
 
       const produtos = ProdutosCollection.find({}).fetch();
-      assert.equal(produtos.length, 2);
+      assert.equal(produtos.length, 1);
       assert.isTrue(produtos.some(produto => produto.nome === nome));
     });
 
+    it('Pode inserir nome com caracteres especiais', () => {
+      const nome = '#$%';
+      const quantidade = '3';
+      const preco = '3';
+
+      ProdutosCollection.remove({});
+      mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      const produtos = ProdutosCollection.find({}).fetch();
+      assert.equal(produtos.length, 1);
+      assert.isTrue(produtos.some(produto => produto.nome === nome));
+    });
+
+    it('Pode inserir nome com espaços', () => {
+      const nome = 'Produto qualquer';
+      const quantidade = '3';
+      const preco = '3';
+
+      ProdutosCollection.remove({});
+      mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      const produtos = ProdutosCollection.find({}).fetch();
+      assert.equal(produtos.length, 1);
+      assert.isTrue(produtos.some(produto => produto.nome === nome));
+    });
+
+    it('Pode inserir nome números', () => {
+      const nome = 'Pizza 4 queijos';
+      const quantidade = '3';
+      const preco = '3';
+
+      ProdutosCollection.remove({});
+      mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      const produtos = ProdutosCollection.find({}).fetch();
+      assert.equal(produtos.length, 1);
+      assert.isTrue(produtos.some(produto => produto.nome === nome));
+    });
+
+    it('Quantidade são letras', () => {
+      const nome = 'Produto novo';
+      const quantidade = 'abcd';
+      const preco = '3';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /A quantidade inserida não é um numero/);
+    });
+
+    it('Quantidade são letras e numeros', () => {
+      const nome = 'Produto novo';
+      const quantidade = 'abcd123';
+      const preco = '3';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /A quantidade inserida não é um numero/);
+    });
+
+    it('Quantidade são letras e espaços', () => {
+      const nome = 'Produto novo';
+      const quantidade = 'ab cd';
+      const preco = '3';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /A quantidade inserida não é um numero/);
+    });
+
+    it('Quantidade são caracteres especiais', () => {
+      const nome = 'Produto novo';
+      const quantidade = '#$%';
+      const preco = '3';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /A quantidade inserida não é um numero/);
+    });
+
+    it('Quantidade são caracteres especiais e numeros', () => {
+      const nome = 'Produto novo';
+      const quantidade = '$#@123';
+      const preco = '3';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /A quantidade inserida não é um numero/);
+    });
+
+    it('Quantidade são caracteres especiais e letras', () => {
+      const nome = 'Produto novo';
+      const quantidade = '$#@abc';
+      const preco = '3';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /A quantidade inserida não é um numero/);
+    });
+
+    it('Quantidade são caracteres especiais, letras e numeros', () => {
+      const nome = 'Produto novo';
+      const quantidade = '$#@abc123';
+      const preco = '3';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /A quantidade inserida não é um numero/);
+    });
 
     it('Valor de preço são letras', () => {
       const nome = 'Produto novo';
@@ -142,6 +285,58 @@ if (Meteor.isServer) {
       const nome = 'Produto novo';
       const quantidade = '1';
       const preco = '#2';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /O preço inserido não é um numero./);
+    });
+
+    it('Valor de preço são caracteres e espaço', () => {
+      const nome = 'Produto novo';
+      const quantidade = '1';
+      const preco = '# %';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /O preço inserido não é um numero./);
+    });
+
+    it('Valor de preço são letras e espaço', () => {
+      const nome = 'Produto novo';
+      const quantidade = '1';
+      const preco = 'a b';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /O preço inserido não é um numero./);
+    });
+
+    it('Valor de preço são letras, espaço e numero', () => {
+      const nome = 'Produto novo';
+      const quantidade = '1';
+      const preco = 'a b1';
+
+
+      const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
+        context: { userId },
+      });
+
+      assert.throws( erro, /O preço inserido não é um numero./);
+    });
+
+    it('Valor de preço são caracteres, espaço e numero', () => {
+      const nome = 'Produto novo';
+      const quantidade = '1';
+      const preco = '$ #1';
 
 
       const erro = () => mockMethodCall('produto.inserir', nome, quantidade, preco, {
@@ -237,7 +432,162 @@ if (Meteor.isServer) {
       assert.equal(eValorMonetario('#@#?'), false);
     });
 
+    it('Teste valor com caracteres especiais e espaço', () => {
+      assert.equal(eValorMonetario('# @#?'), false);
+    });
+
+    it('Teste valor com letras e espaço', () => {
+      assert.equal(eValorMonetario('a b c'), false);
+    });
+
   });
 
+  describe('Métodos de calcular valores', () => {
+    const userId = Random.id();
+
+    it('calcula produto mais caro', () => {
+      ProdutosCollection.insert({
+        nome: 'Produto teste',
+        quantidade:'3',
+        valor: '3',
+        createdAt: new Date(),
+        userId,
+      });
+
+      ProdutosCollection.insert({
+        nome: 'Produto teste',
+        quantidade:'1',
+        valor: '1',
+        createdAt: new Date(),
+        userId,
+      });
+
+      const retorno = mockMethodCall('produtoMaisCaro', {
+        context: { userId },
+      });
+
+      assert.equal( retorno.valor, 3);
+      ProdutosCollection.remove({});
+    });
+
+    it('calcula produto mais caro de apenas 1 item', () => {
+      ProdutosCollection.insert({
+        nome: 'Produto teste',
+        quantidade:'1',
+        valor: '1',
+        createdAt: new Date(),
+        userId,
+      });
+
+      const retorno = mockMethodCall('produtoMaisCaro', {
+        context: { userId },
+      });
+
+      assert.equal( retorno.valor, 1);
+      ProdutosCollection.remove({});
+    });
+
+    it('calcula produto mais barato', () => {
+      ProdutosCollection.insert({
+        nome: 'Produto teste',
+        quantidade:'3',
+        valor: '3',
+        createdAt: new Date(),
+        userId,
+      });
+
+      ProdutosCollection.insert({
+        nome: 'Produto teste',
+        quantidade:'1',
+        valor: '1',
+        createdAt: new Date(),
+        userId,
+      });
+
+      const retorno = mockMethodCall('produtoMaisBarato', {
+        context: { userId },
+      });
+
+      assert.equal( retorno.valor, 1);
+    });
+
+    it('calcula produto mais barato de apenas 1 item', () => {
+      ProdutosCollection.insert({
+        nome: 'Produto teste',
+        quantidade:'1',
+        valor: '1',
+        createdAt: new Date(),
+        userId,
+      });
+
+      const retorno = mockMethodCall('produtoMaisBarato', {
+        context: { userId },
+      });
+
+      assert.equal( retorno.valor, 1);
+    });
+
+    it('calcula valor total', () => {
+      ProdutosCollection.remove({});
+      ProdutosCollection.insert({
+        nome: 'Produto teste',
+        quantidade:'3',
+        valor: '3',
+        createdAt: new Date(),
+        userId,
+      });
+
+      ProdutosCollection.insert({
+        nome: 'Produto teste',
+        quantidade:'1',
+        valor: '1',
+        createdAt: new Date(),
+        userId,
+      });
+
+      const retorno = mockMethodCall('valorTotalLista', {
+        context: { userId },
+      });
+
+      assert.equal( retorno, 10);
+    });
+
+    it('remove itens e calcula valor total', () => {
+      ProdutosCollection.remove({});
+      ProdutosCollection.insert({
+        nome: 'Produto teste',
+        quantidade:'3',
+        valor: '3',
+        createdAt: new Date(),
+        userId,
+      });
+
+      ProdutosCollection.insert({
+        nome: 'Produto teste',
+        quantidade:'1',
+        valor: '1',
+        createdAt: new Date(),
+        userId,
+      });
+
+      ProdutosCollection.remove({});
+
+      const retorno = mockMethodCall('valorTotalLista', {
+        context: { userId },
+      });
+
+      assert.equal( retorno, 0);
+    });
+
+    it('calcula valor total de nenhum item', () => {
+      ProdutosCollection.remove({});
+
+      const retorno = mockMethodCall('valorTotalLista', {
+        context: { userId },
+      });
+
+      assert.equal( retorno, 0);
+    });
+  });
 
 }

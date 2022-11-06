@@ -22,6 +22,11 @@ export const eValorMonetario = (stringPreco) => {
     return (er.test(stringPreco))
 }
 
+export const eQuantidadeNumero = (stringQuantidade) => {
+  var er = /[\d\.\,]+$/;
+  return (er.test(stringQuantidade))
+}
+
  
 Meteor.methods({
   'produto.inserir'(nome, quantidade, valor) {
@@ -29,8 +34,6 @@ Meteor.methods({
     check(quantidade, String);
     check(valor, String);
 
-    
-  
     quantidade = parseInt(quantidade);
 
     if(eValorMonetario(valor)){
@@ -41,11 +44,16 @@ Meteor.methods({
 
     if(isNaN(valor)) { throw new Meteor.Error('O preço inserido não é um numero'); }
 
+    if(eQuantidadeNumero(quantidade)){
+      quantidade = parseInt(quantidade);
+    } else{
+      throw new Meteor.Error('A quantidade inserida não é um numero');
+    }
+
+    if(isNaN(quantidade)) { throw new Meteor.Error('A quantidade inserida não é um numero'); }
 
     if(eLimiteDeProduto(quantidade))
     if(eLimiteDePreco(valor))
-
-
 
     if (!this.userId) { throw new Meteor.Error('Você não possui permissão para inserir produtos.'); }
 
