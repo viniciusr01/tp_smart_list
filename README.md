@@ -8,7 +8,7 @@
 <p> <h2> Teste de Software </h2> </p>
 
   
-| [Sobre](#Lista-de-compras) | [Integrantes](#Integrantes) | [Como executar](#Commands-and-descriptions) |  [Tecnologias Utilizadas](#Tecnologias-utilizadas) |
+| [Sobre](#Lista-de-compras) | [Integrantes](#Integrantes) | [Como executar](#Como-executar) |  [Tecnologias Utilizadas](#Tecnologias-utilizadas) |
 | - | - | - | - |
 
 </div>
