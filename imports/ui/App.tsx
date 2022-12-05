@@ -106,19 +106,19 @@ export const App = () => {
 
               <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>
               <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Quantidade </Typography>
-              <Typography sx={{fontSize: 40, fontWeight: 800, color: 'white'}}>{quantidadeProdutos}</Typography>
+              <Typography data-id='qnt-produto' sx={{fontSize: 40, fontWeight: 800, color: 'white'}}>{quantidadeProdutos}</Typography>
               </Box>
 
               <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>
               <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Mais caro</Typography>
               <Typography sx={{fontSize: 15, fontWeight: 800, color: 'white'}}>{produtoMaisCaro.nome}</Typography>
-              <Typography sx={{fontSize: 30, fontWeight: 800, color: 'white'}}>R$ {produtoMaisCaro.valor}</Typography>
+              <Typography data-id='mais-caro' sx={{fontSize: 30, fontWeight: 800, color: 'white'}}>R$ {produtoMaisCaro.valor}</Typography>
               </Box>
 
               <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>
               <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Mais barato</Typography>
               <Typography sx={{fontSize: 15, fontWeight: 800, color: 'white'}}>{produtoMaisBarato.nome}</Typography>
-              <Typography sx={{fontSize: 30, fontWeight: 800, color: 'white'}}>R$ {produtoMaisBarato.valor}</Typography>
+              <Typography data-id='mais-barato' sx={{fontSize: 30, fontWeight: 800, color: 'white'}}>R$ {produtoMaisBarato.valor}</Typography>
               </Box>
 
             </Box>
