@@ -1,13 +1,51 @@
-# Lista de compras 
+<div align="center">
+  
+<p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Logo_UFMG.png/320px-Logo_UFMG.png" alt="alt text" width="210" height="82">
+</p>
 
-Integrantes:
+
+<p> <h2> Teste de Software </h2> </p>
+
+  
+| [Sobre](#Lista-de-compras) | [Integrantes](#Integrantes) | [Como executar](#Commands-and-descriptions) |  [Tecnologias Utilizadas](#Tecnologias-utilizadas) |
+| - | - | - | - |
+
+</div>
+
+
+
+
+### Lista de compras
+
+Foi desenvolvido um sistema de lista de compras, onde é possível o usuário adicionar um produto com nome, quantidade e valor. Além de ver os produtos na lista, o usuário tem o feedback do valor total dos produtos inseridos na lista, a quantidade de produtos e o produto mais caro e mais barato.
+
+
+
+### Integrantes:
 - Abner Davi Bicalho de Lima
 - Vinicius Rodrigues de Oliveira
 
-Descrição sobre o sitema:
-O sistema é uma simulação de lista de compras, onde se deve adicionar um produto, sua quantidade e valor.
-O item será adicionado à lista, podendo ser excluído.
-Ao adicionar os produtos, cálculos são feitos, mostrando o valor total da lista, a quantidade total de itens, o produto mais caro e o mais barato
+### Como executar:
 
-Tecnologias utilizadas:
-Foi utilizado JavaScript e TypeScript como linguagens front e back end. React no front end. Node e Meteor no back end. MongoDB para banco de dados. Mocha JavaScript para testes.
+- clonar o repositório:
+    ```cli
+    git clone https://github.com/abnerllima/app_lista_compras.git
+    ```
+- Realizar o download das dependências:
+    ```cli
+    meteor npm install
+    ```
+
+- Rodar o programa:
+    ```cli
+    meteor run
+    ```
+
+### Tecnologias utilizadas:
+
+- Framework: Metor foi utilizado para o desenvolvimento da aplicação Web
+    - Foi utilizado Node.JS, React.JS e TypeScript
+- Banco de dados: MongoDB
+- Testes: Mocha + Chai para teste de unidade e Cypress para OS testes E2E
+
