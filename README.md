@@ -47,5 +47,7 @@ Foi desenvolvido um sistema de lista de compras, onde é possível o usuário ad
 - Framework: Metor foi utilizado para o desenvolvimento da aplicação Web
     - Foi utilizado Node.JS, React.JS e TypeScript
 - Banco de dados: MongoDB
-- Testes: Mocha + Chai para teste de unidade e Cypress para OS testes E2E
+- Testes: 
+    - Mocha + Chai para teste de unidade 
+    - Cypress para os testes E2E
 
