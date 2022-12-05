@@ -24,7 +24,7 @@ export const Produto = ({ produto }) => {
       <Typography sx={{width: '30%'}}>{produto.nome}</Typography>
       <Typography sx={{width: '10%'}}>{produto.quantidade}</Typography>
       <Typography sx={{width: '10%'}}>R$ {produto.valor}</Typography>
-      <DeleteIcon onClick={removerProduto} sx={{fontSize: '35px', cursor: 'pointer', color: '#0080df'}}/>
+      <DeleteIcon data-id='remove-produto' onClick={removerProduto} sx={{fontSize: '35px', cursor: 'pointer', color: '#0080df'}}/>
     </Box>
   )
 };

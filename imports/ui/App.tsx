@@ -58,7 +58,7 @@ export const App = () => {
         >
 
           <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-            <Typography sx={{ fontSize: '30px', fontWeight: '700', marginBottom: '2rem' }}>Bem vindo(a), {user.username} </Typography>
+            <Typography data-id='home-page' sx={{ fontSize: '30px', fontWeight: '700', marginBottom: '2rem' }}>Bem vindo(a), {user.username} </Typography>
             <Button onClick={deslogar} sx={{ color: 'white' }}>
               <LogoutIcon sx={{ color: 'white', paddingRight: '1rem' }} /> Sair
             </Button>
@@ -69,10 +69,10 @@ export const App = () => {
 
               <ProdutoAdd />
               <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', margin: '2rem 0' }}>
-                <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', borderBottom: '1px solid silver', marginBottom: '1rem' }}>
-                  <Typography sx={{ fontSize: '20px', fontWeight: '700', width: '30%' }}>Produto</Typography>
-                  <Typography sx={{ fontSize: '20px', fontWeight: '700', width: '10%' }}>Quantidade</Typography>
-                  <Typography sx={{ fontSize: '20px', fontWeight: '700', width: '10%' }}>Preço</Typography>
+                <Box  sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', borderBottom: '1px solid silver', marginBottom: '1rem' }}>
+                  <Typography  sx={{ fontSize: '20px', fontWeight: '700', width: '30%' }}>Produto</Typography>
+                  <Typography  sx={{ fontSize: '20px', fontWeight: '700', width: '10%' }}>Quantidade</Typography>
+                  <Typography  sx={{ fontSize: '20px', fontWeight: '700', width: '10%' }}>Preço</Typography>
                   <Typography sx={{ fontSize: '20px', fontWeight: '700', width: '10%' }}>Ações</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column', height: '500px', overflowY: 'auto' }}>
@@ -101,7 +101,7 @@ export const App = () => {
 
               <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>
               <Typography sx={{fontSize: 25, fontWeight: 500, color: 'white'}}>Valor</Typography>
-              <Typography sx={{display: 'flex', fontSize: 30, fontWeight: 800, color: 'white'}}>R$ {valorTotalLista}</Typography>
+              <Typography data-id='valor-total' sx={{display: 'flex', fontSize: 30, fontWeight: 800, color: 'white'}}>R$ {valorTotalLista}</Typography>
               </Box>
 
               <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', flexWrap: 'wrap', padding: '0.5rem', width: '150px', height: '150px', boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)", borderRadius: '20px', background: 'linear-gradient(45deg, #0080df 30%, #289cff 90%);', }}>

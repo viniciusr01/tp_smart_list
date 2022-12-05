@@ -59,6 +59,7 @@ export const Login = () => {
           <Box sx={{ display: 'flex', flexWrap: 'wrap', maxWidth: '70%', gap: '1rem' }}>
             <TextField
               id="filled-required"
+              data-id= "user-input"
               label="Usuario"
               variant="filled"
               fullWidth
@@ -69,6 +70,7 @@ export const Login = () => {
 
             <TextField
               id="filled-password-input"
+              data-id= "password-input"
               label="Senha"
               type="password"
               autoComplete="current-password"
@@ -81,7 +83,7 @@ export const Login = () => {
 
             {!telaCadastro &&
             <>
-              <Button onClick={logar} variant="contained" sx={{ width: '100%' }} color="primary">
+              <Button onClick={logar} data-id= "login-button" variant="contained" sx={{ width: '100%' }} color="primary">
                 Entrar
               </Button>
 
