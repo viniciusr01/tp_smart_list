@@ -38,20 +38,21 @@ export const Login = () => {
           sx={{
             display: 'flex',
             width: '600px',
-            height: '400px',
+            height: '600px',
             background: 'white',
             boxShadow: "0px 2px 14px rgba(0, 0, 0, 0.25)",
-            padding: '5rem',
+            padding: '2rem 5rem',
             flexDirection: 'column',
             alignItems: 'center',
             borderRadius: '20px'
           }}
         >
 
-          <Typography variant="h3" sx={{ color: '#0080df', marginBottom: '2rem', alignItems: 'center' }}>
-            <AssignmentIcon sx={{ fontSize: 60, padding: 0 }} />
-            Lista de Compras
-          </Typography>
+            <Box
+              component="img"
+              src="/images/logo.png"
+              sx={{width: '200px'}}
+            />
 
           <Typography variant="h5" sx={{ marginBottom: '2rem' }}> 
             {telaCadastro ? 'Cadastrar' : 'Entrar'}
