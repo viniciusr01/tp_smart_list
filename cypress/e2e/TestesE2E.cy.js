@@ -1,6 +1,6 @@
 describe('Teste End-to-End', () => {
   it('Logar no sistema', () => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('http://localhost:3000/', { headers: { "Accept-Encoding": "gzip, deflate" } })
 
     cy.get('[data-id=user-input]').within(() => {
       cy.get('input').type('admin')
