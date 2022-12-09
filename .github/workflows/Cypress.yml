@@ -22,8 +22,9 @@ jobs:
       - run: meteor npm install
     
       - name: Cypress run
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v4 && meteorengineer/setup-meteor@v1.0.3
         with:
+            start: meteor run
             spec: cypress/e2e/TestesE2E.cy.js
       
       
