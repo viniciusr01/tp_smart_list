@@ -24,5 +24,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          browser: chrome 
+          browser: chrome
+          start: meteor run
+          wait-on: "http://localhost:3000"
           run: meteor run && npm run cypress:headless  --record --spec "cypress/e2e/TestesE2E.cy.js"
