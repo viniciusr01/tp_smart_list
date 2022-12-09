@@ -21,10 +21,9 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          project: ./.meteor
           meteor-release: ${{ matrix.meteor }}
           browser: chrome
           build: meteor npm install
-          start: meteor run
+          start: npm start
           wait-on: "http://localhost:3000"
           run: meteor run && npm run cypress:headless  --record --spec "cypress/e2e/TestesE2E.cy.js"
