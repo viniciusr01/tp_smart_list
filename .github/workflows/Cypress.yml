@@ -6,11 +6,21 @@ jobs:
 
   cypress-run:
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        meteor: [ '2.8.0' ]
+    
     steps:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          meteor-release: ${{ matrix.meteor }}
+          run: meteor npm install
+  
       - name: Checkout
         uses: actions/checkout@v2
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
+      
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
