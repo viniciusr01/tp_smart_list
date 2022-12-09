@@ -19,11 +19,9 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
+        
+      - run: meteor npm install
+      - run: meteor run
+      - run: meteor run && npm run cypress:headless  --record --spec "cypress/e2e/TestesE2E.cy.js"
       
-      - name: Cypress run
-        with:
-          browser: chrome
-          build: meteor npm install
-          start: meteor run
-          wait-on: "http://localhost:3000"
-          run: meteor run && npm run cypress:headless  --record --spec "cypress/e2e/TestesE2E.cy.js"
+      
