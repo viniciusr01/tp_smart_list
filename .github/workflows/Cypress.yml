@@ -8,13 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2, meteorengineer/setup-meteor@v1.0.3
+        uses: actions/checkout@v2
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          meteor-release: ${{ matrix.meteor }}
-          run: meteor npm install
           build: npm run build
           start: npm start
