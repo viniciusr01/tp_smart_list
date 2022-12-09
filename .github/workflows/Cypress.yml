@@ -17,12 +17,12 @@ jobs:
         with:
           meteor-release: ${{ matrix.meteor }}
           run: meteor npm install
-      - run: meteor npm run
-  
+
       - name: Checkout
         uses: actions/checkout@v2
       
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          run: npm run cypress:headless  --record --spec "cypress/e2e/TestesE2E.cy.js"
+          browser: chrome 
+          run: meteor run && npm run cypress:headless  --record --spec "cypress/e2e/TestesE2E.cy.js"
