@@ -323,5 +323,9 @@ describe('Teste End-to-End', () => {
        
   })
   
+  it('Visitar Google', () => {
+    cy.visit('https://www.google.com/')
+  })
+  
 
 })
