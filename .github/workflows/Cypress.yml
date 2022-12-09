@@ -14,9 +14,6 @@ jobs:
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
-        with:
-          meteor-release: ${{ matrix.meteor }}
-          run: meteor npm install
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,7 +21,9 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
+          meteor-release: ${{ matrix.meteor }}
           browser: chrome
+          build: meteor npm install
           start: meteor run
           wait-on: "http://localhost:3000"
           run: meteor run && npm run cypress:headless  --record --spec "cypress/e2e/TestesE2E.cy.js"
