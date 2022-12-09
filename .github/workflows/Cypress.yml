@@ -23,5 +23,6 @@ jobs:
       
       - name: Cypress run
         uses: cypress-io/github-action@v4
-        with:
-          run: npm run cypress:headless  --record --spec "cypress/e2e/TestesE2E.cy.js"
+        
+      - run: meteor npm run
+      - run: npm run cypress:headless  --record --spec "cypress/e2e/TestesE2E.cy.js"
