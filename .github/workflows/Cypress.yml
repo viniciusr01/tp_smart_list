@@ -12,19 +12,21 @@ jobs:
         meteor: [ '2.8.0' ]
     
     steps:
-    
-    
+          
       - name: Checkout
         uses: actions/checkout@v2
         
       - uses: actions/setup-node@v3  
-      - uses: meteorengineer/setup-meteor@v1.0.3
-      - run: meteor npm install
+      
+      - name: Meteor run
+        uses: meteorengineer/setup-meteor@v1.0.3
+        with:
+          meteor-release: ${{ matrix.meteor }}
+          run: meteor npm install && meteor run
     
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-            start: meteorengineer/setup-meteor@v1.0.3 run
             spec: cypress/e2e/TestesE2E.cy.js
       
       
