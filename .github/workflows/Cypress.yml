@@ -3,6 +3,23 @@ name: Cypress Tests
 on: [push]
 
 jobs:
+
+  app-start:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        meteor: [ '2.8.0' ]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Meteor.js ${{ matrix.meteor }}
+      uses: meteorengineer/setup-meteor@v1.0.3
+      with:
+        meteor-release: ${{ matrix.meteor }}
+    - run: meteor npm install
+
   cypress-run:
     runs-on: ubuntu-latest
     steps:
